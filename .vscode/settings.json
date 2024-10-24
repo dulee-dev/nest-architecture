@@ -1,0 +1,5 @@
+{
+  "material-icon-theme.activeIconPack": "nest",
+  "jest.jestCommandLine": "node_modules/.bin/jest --config ./__tests__/jest.config.ts",
+  "jest.runMode": "on-demand"
+}

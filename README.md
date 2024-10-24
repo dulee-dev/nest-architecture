@@ -1,73 +1,25 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# 네스트 기본 프로젝트에 가장 단순하게 4 layer architecture 적용
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+### 구조 설명
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- domain(buisness model 등) -> lib(buisness와 기본 타입 사이 어딘가) -> util(js 기본 타입용 유틸리티) 은 순수 함수, infra는 비순수함수(외부api나 특수한 경우의 랜덤 생성 함수 등), server는 interface라고 보면 된다.
 
-## Description
+- interface, infra를 통해서 nodejs를 제외한 최대한의 의존성이 제거되었다는 장점이 있다.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- 테스트도 편하다
 
-## Installation
+### 유의사항
 
-```bash
-$ npm install
-```
+- nest-cli.json에 entryFile 추가 (서버 파일 변경)
 
-## Running the app
+- (optional) .vscode/settings.json 에 icon theme 변경
 
-```bash
-# development
-$ npm run start
+- test에 관한 랜덤생성함수는 fakerjs를 사용했으나 실제로는 직접 만드는게 좋다(요구사항이 다 다르므로)
 
-# watch mode
-$ npm run start:dev
+- test는 실제 코드에 관한 의존성이 0이어야 하는것이 원칙이나 난 잘 지키는 편은 아니다 -> 이부분은 좀 이론적이라고 생각한다(물론 이런거 따지면 밑도 끝도 없지만)
 
-# production mode
-$ npm run start:prod
-```
+- jest보다 vitest가 속도가 훨씬 빨라서 추천. 호환된다. 다만 swc를 사용하기 때문에, swc를 사용하지 않는 경우 (typia가 이경우) 사용 불가.
 
-## Test
+- 그리고 둘 다 extension이 잘되있으니 extension 쓰기 추천
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+- 원래 server테스트도 하지만 설정이 귀찮아서 안함

@@ -11,11 +11,19 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
-    "skipLibCheck": true,
-    "strictNullChecks": false,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
+
+    "strict": true,
+    "strictPropertyInitialization": false, // strict에선 얘만 꺼둠
+
+    "esModuleInterop": true, // import default 가능하게 해줌
+    "noImplicitThis": true, // 객체 내 this 가능
+
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+
+    "paths": {
+      "@src/*": ["src/*"],
+      "@fixtures/*": ["fixtures/*"]
+    }
   }
 }
